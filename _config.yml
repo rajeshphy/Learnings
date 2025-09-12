@@ -1,0 +1,14 @@
+title: 🗞️ Courses Links
+description: A curated list of free, independent news outlets in India
+baseurl: "/Learnings" # or "/your-repo-name" if hosted under a GitHub subpath
+url: ""     # Optional: add your custom domain or GitHub Pages URL
+
+theme: minima # or basically-basic, or your custom theme
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+include:
+  - assets
+
+markdown: kramdown
