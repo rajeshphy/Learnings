@@ -1,9 +1,12 @@
 
 ---STC-IIT-BHU-SEP-2025---
-
+% Dr. Ajit K Mishra
 https://rajeshphy.github.io/Learnings//PDF/2025-09-IIT-BHU-STC/IIT-BHU-Day-1.pdf, What is research PDF
-https://youtu.be/1_kheleDPak , How to Write Proposal for grant 
-https://youtu.be/jozU7ASbpvA , How to Write Research paper-1
+% Dr. Rajnish Kumar
+https://youtu.be/1_kheleDPak , Write Proposal for grant-1
+https://youtu.be/h2GLewIHyw4 , Write Proposal for grant-2
+% Dr. Prashant Shukla
+https://youtu.be/jozU7ASbpvA , Write Research paper-1
+https://youtu.be/xzyUoVZcjTQ , Write Research paper-2
+https://youtu.be/RwwaxDW2V8I?si=GZA8WdGmSETuMtPF, Grant Proposal by P.Shukla
 
-
----PDF---

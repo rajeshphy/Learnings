@@ -13,9 +13,13 @@ fetch('{{ site.baseurl }}/learn.txt')
     const container = document.getElementById('button-sections');
     let section = null;
     let colorIndex = 0;
-    const colors = ['#1a73e8', '#d93025', '#188038', '#9c27b0']; // alternating colors
+    const colors = ['#1a73e8', '#188038']; // blue, green
 
     lines.forEach(line => {
+      line = line.trim();
+      if (!line) return;
+
+      // Handle category headings
       if (line.startsWith('---') && line.endsWith('---')) {
         const category = line.replace(/---/g, '').trim();
         section = document.createElement('div');
@@ -26,12 +30,21 @@ fetch('{{ site.baseurl }}/learn.txt')
         heading.className = 'category-title';
         section.appendChild(heading);
 
-        const linkContainer = document.createElement('div');
-        linkContainer.className = 'link-group';
-        section.appendChild(linkContainer);
+        const contentContainer = document.createElement('div');
+        contentContainer.className = 'link-group';
+        section.appendChild(contentContainer);
 
         container.appendChild(section);
-      } else if (section && line.startsWith('http')) {
+      } 
+      // % lines: centered shaded heading-style blocks
+      else if (section && line.startsWith('%')) {
+        const shadedHeading = document.createElement('div');
+        shadedHeading.textContent = line.slice(1).trim();
+        shadedHeading.className = 'shaded-heading';
+        section.querySelector('.link-group').appendChild(shadedHeading);
+      }
+      // Hyperlinks: alternate blue and green
+      else if (section && line.startsWith('http')) {
         const parts = line.split(',');
         const url = parts[0].trim();
         const label = parts[1] ? parts[1].trim() : new URL(url).hostname.replace('www.', '');
@@ -46,9 +59,8 @@ fetch('{{ site.baseurl }}/learn.txt')
         link.style.display = 'block';
         link.style.marginBottom = '0.5rem';
 
-        colorIndex++;
-
         section.querySelector('.link-group').appendChild(link);
+        colorIndex++;
       }
     });
   });
@@ -79,5 +91,19 @@ body {
 
 .link-group {
   padding: 1rem;
+}
+
+/* Center-aligned shaded heading for % lines */
+.shaded-heading {
+  font-weight: bold;
+  font-family: "Times New Roman", Times, serif;
+  color: #000000;
+  background-color: #e9ecef;
+  padding: 0.4rem 0.6rem;
+  margin-bottom: 0.6rem;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+  text-align: center;
 }
 </style>
