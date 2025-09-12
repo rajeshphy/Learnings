@@ -1,18 +1,19 @@
 ---
 layout: default
-title: Free Press Segmented
+title: Notes Arxived
 ---
-
 
 <div id="button-sections" style="padding: 1rem;"></div>
 
 <script>
-fetch('{{ site.baseurl }}/url.txt')
+fetch('{{ site.baseurl }}/learn.txt')
   .then(response => response.text())
   .then(data => {
     const lines = data.trim().split('\n');
     const container = document.getElementById('button-sections');
     let section = null;
+    let colorIndex = 0;
+    const colors = ['#1a73e8', '#d93025', '#188038', '#9c27b0']; // alternating colors
 
     lines.forEach(line => {
       if (line.startsWith('---') && line.endsWith('---')) {
@@ -25,9 +26,9 @@ fetch('{{ site.baseurl }}/url.txt')
         heading.className = 'category-title';
         section.appendChild(heading);
 
-        const buttonContainer = document.createElement('div');
-        buttonContainer.className = 'button-group';
-        section.appendChild(buttonContainer);
+        const linkContainer = document.createElement('div');
+        linkContainer.className = 'link-group';
+        section.appendChild(linkContainer);
 
         container.appendChild(section);
       } else if (section && line.startsWith('http')) {
@@ -35,23 +36,25 @@ fetch('{{ site.baseurl }}/url.txt')
         const url = parts[0].trim();
         const label = parts[1] ? parts[1].trim() : new URL(url).hostname.replace('www.', '');
 
-        const btn = document.createElement('button');
-        btn.textContent = label;
-        btn.className = 'news-button';
-        btn.onclick = () => window.open(url, '_blank');
+        const link = document.createElement('a');
+        link.href = url;
+        link.textContent = label;
+        link.target = '_blank';
+        link.style.fontWeight = 'bold';
+        link.style.fontFamily = '"Times New Roman", Times, serif';
+        link.style.color = colors[colorIndex % colors.length];
+        link.style.display = 'block';
+        link.style.marginBottom = '0.5rem';
 
-        section.querySelector('.button-group').appendChild(btn);
+        colorIndex++;
+
+        section.querySelector('.link-group').appendChild(link);
       }
     });
   });
 </script>
 
 <style>
-/* Global responsiveness */
-* {
-  box-sizing: border-box;
-}
-
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
@@ -59,7 +62,6 @@ body {
   color: #212529;
 }
 
-/* Section styling */
 .category-section {
   margin-bottom: 2rem;
   padding: 0.5rem;
@@ -75,44 +77,7 @@ body {
   border-left: 4px solid #5a8dee;
 }
 
-/* Buttons */
-.button-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
+.link-group {
   padding: 1rem;
-  justify-content: flex-start;
-}
-
-.news-button {
-  flex: 1 1 160px;
-  padding: 0.7rem 1rem;
-  border: none;
-  border-radius: 10px;
-  background: linear-gradient(to right, #5a8dee, #6fcf97);
-  color: white;
-  font-size: 1rem;
-  font-weight: 600;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.news-button:hover {
-  transform: translateY(-2px);
-  background: linear-gradient(to right, #6fcf97, #5a8dee);
-}
-
-/* Mobile tweaks */
-@media (max-width: 600px) {
-  .news-button {
-    flex: 1 1 100%;
-    font-size: 1rem;
-  }
-
-  .category-title {
-    font-size: 1.1rem;
-  }
 }
 </style>
